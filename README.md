@@ -7,10 +7,10 @@ The aim is to get the whole infrastructure up and running with a single `vagrant
 # TODO
 
 Other stuff that should be demonstrated here: 
-- [ ] data bags
 - [ ] encrypted data bags
-- [ ] environments
 - [ ] different providers (e.g. lxc, aws)
+- [ ] Cheffile vs. Berksfile
+- [ ] different provisioners (puppet?)
 
 # USAGE
 
