@@ -32,4 +32,21 @@ Vagrant::configure("2") do |config|
     end
   end
 
+  #
+  # app running on local vbox
+  #
+  config.vm.define :'app_local' do |app_config|
+
+    app_config.vm.hostname = "applocal.local"
+    app_config.vm.network :private_network, ip: "33.33.42.15"
+
+    app_config.app_cookbook.url = "file:///W:/repo/sample-application-cookbook"
+    app_config.vm.provision :chef_solo do |chef|
+      chef.add_recipe "sample-app"
+      chef.data_bags_path = "./data_bags"
+      chef.environments_path = "./environments"
+      chef.environment = "local"
+    end
+  end
+
 end
