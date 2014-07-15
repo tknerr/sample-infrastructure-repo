@@ -1,8 +1,6 @@
 
 Vagrant::configure("2") do |config|
 
-  # enable cachier
-  config.cache.auto_detect = true
   # the Chef version to use
   config.omnibus.chef_version = "11.12.8"
   
