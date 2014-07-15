@@ -1,6 +1,6 @@
 # README
 
-This is a sample infrastructure repository using the [vagrant-application-cookbooks](https://github.com/tknerr/vagrant-application-cookbooks) plugin to resolve the application cookbook dependencies for each of the `Vagrantfile`'s VMs in isolation. 
+This is a sample infrastructure repository using the [vagrant-toplevel-cookbooks](https://github.com/tknerr/vagrant-toplevel-cookbooks) plugin to resolve the top-level cookbook dependencies for each of the `Vagrantfile`'s VMs in isolation. 
 
 The aim is to get the whole infrastructure up and running with a single `vagrant up`, with all the cookbook dependency resolution happening under the hood.
 
@@ -14,9 +14,10 @@ Other stuff that should be demonstrated here:
 
 # USAGE
 
-First, install the required vagrant plugins via [bindler](https://github.com/fgrehm/bindler):
+First, make sure you have the required Vagrant plugins installed:
 
-	vagrant plugin bundle
+	vagrant plugin install vagrant-omnibus
+	vagrant plugin install vagrant-toplevel-cookbooks
 
 Now you can bring up and provision the VMs in the `Vagrantfile` with a single command:
 
