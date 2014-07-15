@@ -12,8 +12,8 @@ Vagrant::configure("2") do |config|
   # app provisioned with v0.2.0 of the top-level cookbook
   #
   config.vm.define :'app_v1' do |app_config|
-    app_config.app_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
-    app_config.app_cookbook.ref = "v0.2.0"
+    app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
+    app_config.toplevel_cookbook.ref = "v0.2.0"
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
     end
@@ -23,8 +23,8 @@ Vagrant::configure("2") do |config|
   # app provisioned with v0.1.2 of the top-level cookbook
   #  
   config.vm.define :'app_v2' do |app_config|
-    app_config.app_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
-    app_config.app_cookbook.ref = "v0.1.2"
+    app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
+    app_config.toplevel_cookbook.ref = "v0.1.2"
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
     end
@@ -38,7 +38,7 @@ Vagrant::configure("2") do |config|
     app_config.vm.hostname = "applocal.local"
     app_config.vm.network :private_network, ip: "10.33.42.15"
 
-    app_config.app_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
+    app_config.toplevel_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
       chef.data_bags_path = "./data_bags"
