@@ -20,6 +20,11 @@ Vagrant::configure("2") do |config|
 
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
+      chef.json = {
+        :sample_app => {
+          :words_of_wisdom => "Chuck Norris can guess 20 passwords at the same time"
+        }
+      }
     end
   end
 
