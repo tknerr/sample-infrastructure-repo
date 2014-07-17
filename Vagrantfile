@@ -2,11 +2,11 @@
 Vagrant::configure("2") do |config|
 
   # the Chef version to use
-  config.omnibus.chef_version = "11.12.8"
+  config.omnibus.chef_version = "11.14.0.rc.2"
   
   # common basebox for all VMs
-  config.vm.box = "opscode_ubuntu-12.04_provisionerless"
-  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box"  
+  config.vm.box = "opscode_ubuntu-12.04-i386_provisionerless"
+  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_provisionerless.box"
 
   #
   # app provisioned with v0.2.0 of the top-level cookbook
@@ -14,6 +14,10 @@ Vagrant::configure("2") do |config|
   config.vm.define :'app_v1' do |app_config|
     app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
     app_config.toplevel_cookbook.ref = "v0.2.0"
+
+    app_config.vm.hostname = "appv1.local"
+    app_config.vm.network :private_network, ip: "192.168.40.30"
+
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
     end
@@ -36,7 +40,7 @@ Vagrant::configure("2") do |config|
   config.vm.define :'app_local' do |app_config|
 
     app_config.vm.hostname = "applocal.local"
-    app_config.vm.network :private_network, ip: "10.33.42.15"
+    app_config.vm.network :private_network, ip: "192.168.40.32"
 
     app_config.toplevel_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
     app_config.vm.provision :chef_solo do |chef|
