@@ -5,8 +5,7 @@ Vagrant::configure("2") do |config|
   config.omnibus.chef_version = "11.14.0.rc.2"
   
   # common basebox for all VMs
-  config.vm.box = "opscode_ubuntu-12.04-i386_provisionerless"
-  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_provisionerless.box"
+  config.vm.box = "chef/ubuntu-12.04-i386"
 
   #
   # app provisioned with v0.2.0 of the top-level cookbook
