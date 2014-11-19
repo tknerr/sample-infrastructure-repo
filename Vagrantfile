@@ -2,7 +2,7 @@
 Vagrant::configure("2") do |config|
 
   # the Chef version to use
-  config.omnibus.chef_version = "11.14.0.rc.2"
+  config.omnibus.chef_version = "11.16.4"
   
   # common basebox for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
