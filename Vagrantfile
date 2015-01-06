@@ -3,6 +3,9 @@ Vagrant::configure("2") do |config|
 
   # the Chef version to use
   config.omnibus.chef_version = "11.16.4"
+
+  # disable vagrant-berkshelf
+  config.berkshelf.enabled = false
   
   # common basebox for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
