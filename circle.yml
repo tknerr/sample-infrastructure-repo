@@ -5,6 +5,7 @@ machine:
     version: 2.1.3
   environment:
     VAGRANT_DEFAULT_PROVIDER: docker
+    VAGRANT_LOG: DEBUG
 
 dependencies:
   pre:
