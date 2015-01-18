@@ -1,0 +1,21 @@
+machine:
+  services:
+    - docker
+  ruby:
+    version: 2.1.3
+  environment:
+    VAGRANT_DEFAULT_PROVIDER: docker
+
+dependencies:
+  pre:
+    - wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
+    - sudo dpkg -i vagrant_1.7.2_x86_64.deb
+    - vagrant plugin install vagrant-toplevel-cookbooks --plugin-version 0.2.3
+    - vagrant plugin install vagrant-omnibus --plugin-version 1.4.1
+
+test:
+  override:
+    - vagrant up app_v1
+    - vagrant ssh app_v1 -c 'pwd'
+    - vagrant provision app_v1
+    - vagrant destroy app_v1 -f
