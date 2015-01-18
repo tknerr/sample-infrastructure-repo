@@ -7,8 +7,12 @@ Vagrant::configure("2") do |config|
   # disable vagrant-berkshelf
   config.berkshelf.enabled = false
 
-  # common basebox for all VMs
+  # common baseboxes for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
+
+  config.vm.provider :lxc do |lxc, override|
+    override.vm.box = "fgrehm/precise64-lxc"
+  end
 
   #
   # app provisioned with v0.2.0 of the top-level cookbook
@@ -18,7 +22,7 @@ Vagrant::configure("2") do |config|
     app_config.toplevel_cookbook.ref = "v0.2.0"
 
     app_config.vm.hostname = "appv1.local"
-    app_config.vm.network :private_network, ip: "192.168.40.30"
+    app_config.vm.network :private_network, ip: "192.168.40.30", lxc__bridge_name: 'vlxcbr1'
 
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
