@@ -5,7 +5,9 @@ Vagrant::configure("2") do |config|
   config.omnibus.chef_version = "12.0.3"
 
   # disable vagrant-berkshelf
-  config.berkshelf.enabled = false
+  if Vagrant.has_plugin? "berkshelf"
+    config.berkshelf.enabled = false
+  end
 
   # common baseboxes for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
