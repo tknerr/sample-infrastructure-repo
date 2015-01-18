@@ -10,8 +10,9 @@ Vagrant::configure("2") do |config|
   end
 
   # common baseboxes for all VMs
-  config.vm.box = "chef/ubuntu-12.04-i386"
-
+  config.vm.provider :virtualbox do |vbox, override|
+    override.vm.box = "chef/ubuntu-12.04-i386"
+  end
   config.vm.provider :lxc do |lxc, override|
     override.vm.box = "fgrehm/precise64-lxc"
   end
