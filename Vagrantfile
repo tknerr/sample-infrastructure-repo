@@ -13,6 +13,9 @@ Vagrant::configure("2") do |config|
   config.vm.provider :lxc do |lxc, override|
     override.vm.box = "fgrehm/precise64-lxc"
   end
+  config.vm.provider :docker do |docker, override|
+    docker.image = "ubuntu:12.04"
+  end
 
   #
   # app provisioned with v0.2.0 of the top-level cookbook
