@@ -2,11 +2,11 @@
 Vagrant::configure("2") do |config|
 
   # the Chef version to use
-  config.omnibus.chef_version = "11.16.4"
+  config.omnibus.chef_version = "12.0.3"
 
   # disable vagrant-berkshelf
   config.berkshelf.enabled = false
-  
+
   # common basebox for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
 
@@ -32,7 +32,7 @@ Vagrant::configure("2") do |config|
 
   #
   # app provisioned with v0.1.2 of the top-level cookbook
-  #  
+  #
   config.vm.define :'app_v2' do |app_config|
     app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
     app_config.toplevel_cookbook.ref = "v0.1.2"
