@@ -18,6 +18,7 @@ Vagrant::configure("2") do |config|
   end
   config.vm.provider :docker do |docker, override|
     docker.image = "ubuntu:12.04"
+    docker.has_ssh = true
   end
 
   #
