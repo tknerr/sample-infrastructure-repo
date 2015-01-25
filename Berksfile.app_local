@@ -1,0 +1,3 @@
+source "https://supermarket.chef.io"
+
+cookbook "sample-app", path: "C:/Repos/_github/_cookbooks/sample-toplevel-cookbook"
