@@ -22,7 +22,7 @@ Vagrant::configure("2") do |config|
     app_config.toplevel_cookbook.ref = "v0.2.0"
 
     app_config.vm.hostname = "appv1.local"
-    app_config.vm.network :private_network, ip: "192.168.40.30", lxc__bridge_name: 'vlxcbr1'
+    app_config.vm.network :private_network, ip: "172.16.40.30", lxc__bridge_name: 'vlxcbr1'
 
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
@@ -51,7 +51,7 @@ Vagrant::configure("2") do |config|
   config.vm.define :'app_local' do |app_config|
 
     app_config.vm.hostname = "applocal.local"
-    app_config.vm.network :private_network, ip: "192.168.40.32"
+    app_config.vm.network :private_network, ip: "172.16.40.32"
 
     app_config.toplevel_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
     app_config.vm.provision :chef_solo do |chef|
