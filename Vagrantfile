@@ -5,7 +5,7 @@ Vagrant::configure("2") do |config|
   config.omnibus.chef_version = "12.0.3"
 
   # disable vagrant-berkshelf
-  config.berkshelf.enabled = false
+  config.berkshelf.enabled = true
 
   # common baseboxes for all VMs
   config.vm.box = "chef/ubuntu-12.04-i386"
@@ -18,8 +18,8 @@ Vagrant::configure("2") do |config|
   # app provisioned with v0.2.0 of the top-level cookbook
   #
   config.vm.define :'app_v1' do |app_config|
-    app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
-    app_config.toplevel_cookbook.ref = "v0.2.0"
+
+    app_config.berkshelf.berksfile_path = "Berksfile.app_v1"
 
     app_config.vm.hostname = "appv1.local"
     app_config.vm.network :private_network, ip: "172.16.40.30", lxc__bridge_name: 'vlxcbr1'
@@ -38,8 +38,7 @@ Vagrant::configure("2") do |config|
   # app provisioned with v0.1.2 of the top-level cookbook
   #
   config.vm.define :'app_v2' do |app_config|
-    app_config.toplevel_cookbook.url = "https://github.com/tknerr/sample-toplevel-cookbook"
-    app_config.toplevel_cookbook.ref = "v0.1.2"
+    app_config.berkshelf.berksfile_path = "Berksfile.app_v2"
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
     end
@@ -53,7 +52,8 @@ Vagrant::configure("2") do |config|
     app_config.vm.hostname = "applocal.local"
     app_config.vm.network :private_network, ip: "172.16.40.32"
 
-    app_config.toplevel_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
+    app_config.berkshelf.berksfile_path = "Berksfile.app_local"
+
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
       chef.data_bags_path = "./data_bags"
