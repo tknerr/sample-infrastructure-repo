@@ -14,6 +14,12 @@ Vagrant::configure("2") do |config|
     override.vm.box = "fgrehm/precise64-lxc"
   end
 
+  config.vm.provider :docker do |docker, override|
+    override.vm.box = nil
+    docker.image = "tknerr/baseimage-ubuntu:12.04"
+    docker.has_ssh = true
+  end
+
   #
   # app provisioned with v0.2.0 of the top-level cookbook
   #
@@ -22,6 +28,7 @@ Vagrant::configure("2") do |config|
     app_config.toplevel_cookbook.ref = "v0.2.0"
 
     app_config.vm.hostname = "appv1.local"
+    app_config.vm.network :forwarded_port, guest: 80, host: 8080
     app_config.vm.network :private_network, ip: "172.16.40.30", lxc__bridge_name: 'vlxcbr1'
 
     app_config.vm.provision :chef_solo do |chef|
