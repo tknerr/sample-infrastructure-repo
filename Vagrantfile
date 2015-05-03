@@ -8,14 +8,13 @@ Vagrant::configure("2") do |config|
   config.berkshelf.enabled = false
 
   # common baseboxes for all VMs
-  config.vm.box = "chef/ubuntu-12.04-i386"
-
+  config.vm.provider :virtualbox do |vbox, override|
+    override.vm.box = "chef/ubuntu-12.04-i386"
+  end
   config.vm.provider :lxc do |lxc, override|
     override.vm.box = "fgrehm/precise64-lxc"
   end
-
   config.vm.provider :docker do |docker, override|
-    override.vm.box = nil
     docker.image = "tknerr/baseimage-ubuntu:12.04"
     docker.has_ssh = true
   end
