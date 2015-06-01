@@ -8,7 +8,9 @@ Vagrant::configure("2") do |config|
     config.berkshelf.enabled = false
   end
   # use machine scope caching for multi-vm setups
-  config.cache.scope = :machine
+  if Vagrant.has_plugin? "cachier"
+    config.cache.scope = :machine
+  end
 
   # common baseboxes for all VMs
   config.vm.provider :virtualbox do |vbox, override|
