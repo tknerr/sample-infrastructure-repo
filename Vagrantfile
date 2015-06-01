@@ -2,12 +2,13 @@
 Vagrant::configure("2") do |config|
 
   # the Chef version to use
-  config.omnibus.chef_version = "12.0.3"
-
+  config.omnibus.chef_version = "12.3.0"
   # disable vagrant-berkshelf
   if Vagrant.has_plugin? "berkshelf"
     config.berkshelf.enabled = false
   end
+  # use machine scope caching for multi-vm setups
+  config.cache.scope = :machine
 
   # common baseboxes for all VMs
   config.vm.provider :virtualbox do |vbox, override|
@@ -20,6 +21,10 @@ Vagrant::configure("2") do |config|
     docker.image = "ubuntu:12.04"
     docker.has_ssh = true
   end
+  config.vm.provider :docker do |docker, override|
+    docker.image = "tknerr/baseimage-ubuntu:12.04"
+    docker.has_ssh = true
+  end
 
   #
   # app provisioned with v0.2.0 of the top-level cookbook
@@ -29,7 +34,8 @@ Vagrant::configure("2") do |config|
     app_config.toplevel_cookbook.ref = "v0.2.0"
 
     app_config.vm.hostname = "appv1.local"
-    app_config.vm.network :private_network, ip: "192.168.40.30", lxc__bridge_name: 'vlxcbr1'
+    app_config.vm.network :forwarded_port, guest: 80, host: 8080
+    app_config.vm.network :private_network, ip: "172.16.40.30", lxc__bridge_name: 'vlxcbr1'
 
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
@@ -58,7 +64,7 @@ Vagrant::configure("2") do |config|
   config.vm.define :'app_local' do |app_config|
 
     app_config.vm.hostname = "applocal.local"
-    app_config.vm.network :private_network, ip: "192.168.40.32"
+    app_config.vm.network :private_network, ip: "172.16.40.32"
 
     app_config.toplevel_cookbook.url = "file:///W:/repo/sample-toplevel-cookbook"
     app_config.vm.provision :chef_solo do |chef|
