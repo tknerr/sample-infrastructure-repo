@@ -3,9 +3,10 @@ Vagrant::configure("2") do |config|
 
   # the Chef version to use
   config.omnibus.chef_version = "12.3.0"
-
   # disable vagrant-berkshelf
   config.berkshelf.enabled = false
+  # use machine scope caching for multi-vm setups
+  config.cache.scope = :machine
 
   # common baseboxes for all VMs
   config.vm.provider :virtualbox do |vbox, override|
