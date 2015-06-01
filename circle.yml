@@ -9,14 +9,18 @@ machine:
 dependencies:
   cache_directories:
     - ~/.vagrant.d
+    - ~/.chefdk
   pre:
     - wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
     - sudo dpkg -i vagrant_1.7.2_x86_64.deb
     - vagrant plugin install vagrant-toplevel-cookbooks
     - vagrant plugin install vagrant-omnibus
+    - wget https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.6.0-1_amd64.deb
+    - sudo dpkg -i chefdk_0.6.0-1_amd64.deb
 
 test:
   override:
+    - berks -v
     - vagrant up app_v1
     - vagrant ssh app_v1 -c 'pwd'
     - vagrant provision app_v1
