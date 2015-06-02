@@ -24,4 +24,3 @@ test:
     - vagrant up app_v1
     - vagrant ssh app_v1 -c 'pwd'
     - vagrant provision app_v1
-    - vagrant destroy app_v1 -f
