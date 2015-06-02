@@ -22,5 +22,6 @@ test:
   override:
     - berks -v
     - vagrant up app_v1
+    - wget -qO- http://localhost:8080/sample.html | grep "Chuck Norris"
     - vagrant ssh app_v1 -c 'pwd'
     - vagrant provision app_v1
