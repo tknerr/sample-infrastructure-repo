@@ -20,8 +20,7 @@ Vagrant::configure("2") do |config|
     override.vm.box = "fgrehm/precise64-lxc"
   end
   config.vm.provider :docker do |docker, override|
-    docker.image = "tknerr/baseimage-ubuntu:12.04"
-    docker.has_ssh = true
+    override.vm.box = "tknerr/baseimage-ubuntu-12.04"
   end
 
   #
