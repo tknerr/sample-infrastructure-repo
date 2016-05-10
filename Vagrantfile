@@ -16,9 +16,6 @@ Vagrant::configure("2") do |config|
   config.vm.provider :virtualbox do |vbox, override|
     override.vm.box = "bento/ubuntu-12.04"
   end
-  config.vm.provider :lxc do |lxc, override|
-    override.vm.box = "fgrehm/precise64-lxc"
-  end
   config.vm.provider :docker do |docker, override|
     override.vm.box = "tknerr/baseimage-ubuntu-12.04"
   end
@@ -32,7 +29,6 @@ Vagrant::configure("2") do |config|
 
     app_config.vm.hostname = "appv1.local"
     app_config.vm.network :forwarded_port, guest: 80, host: 8080
-    app_config.vm.network :private_network, ip: "172.16.40.30", lxc__bridge_name: 'vlxcbr1'
 
     app_config.vm.provision :chef_solo do |chef|
       chef.add_recipe "sample-app"
